@@ -1,12 +1,18 @@
-pipeline {
+pipeline{
     agent any
 
     environment {
         OPENAI_API_KEY = credentials('OPENAI_API_KEY')
-        PORT = "3000"
+        PORT = '3000'
     }
 
     stages {
+        stage( 'Checkout' ){
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/sateesh05061987/chatgpt_clone.git'
+            }
+        }
 
         stage( 'Build Docker Image' ) {
             steps {
