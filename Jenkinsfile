@@ -35,7 +35,7 @@ pipeline {
                   -p 3000:3000 \
                   -e OPENAI_API_KEY=$OPENAI_API_KEY \
                   -e PORT=$PORT \
-                  chatgpt-clone
+                  chatgpt_clone
                 '''
             }
         }
