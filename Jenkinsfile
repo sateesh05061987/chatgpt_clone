@@ -8,14 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                echo 'Checking out the source code...'
-                git branch: 'main',
-                    url: 'https://github.com/satee/chatgpt_clone.git'
-            }
-        }
-
+       
         stage('Build Docker Image') {
             steps {
                 echo 'Building the Docker image...'
