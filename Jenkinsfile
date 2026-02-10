@@ -8,28 +8,26 @@ pipeline {
 
     stages {
 
-       
-        stage('Build Docker Image') {
+        stage( 'Build Docker Image' ) {
             steps {
-                echo 'Building the Docker image...'
-                sh 'docker build -t chatgpt-clone .'
+                sh 'docker build -t  chatgpt_clone .'
             }
         }
 
-        stage('Deploy App') {
+        stage( 'Deploy App' ) {
             steps {
-                echo 'Deploying the application...'
-                sh '''
-                docker stop chatgpt-clone-container || true
-                docker rm chatgpt-clone-container || true
-
-                docker run -d \
-                  --name chatgpt-clone-container \
-                  -p 3000:3000 \
-                  -e OPENAI_API_KEY=$OPENAI_API_KEY \
-                  -e PORT=$PORT \
-                  chatgpt_clone
-                '''
+                script {
+                    sh """
+                        docker stop chatgpt-clone-container || true
+                        docker rm chatgpt-clone-container || true
+                        docker run -d \
+                            --name chatgpt-clone-container \
+                            -p 3000:3000 \
+                            -e OPENAI_API_KEY='${OPENAI_API_KEY}' \
+                            -e PORT='${PORT}' \
+                            chatgpt_clone 
+                    """
+                }
             }
         }
     }
